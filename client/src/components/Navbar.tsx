@@ -65,7 +65,7 @@ const Navabar = () => {
                     <DropdownMenuTrigger asChild>
                         <div className="flex items-center gap-5 cursor-pointer focus:outline-none">
                         <p className="text-primary-600 hidden md:block">
-                            {authUser.userInfo?.name || "Signed In"}
+                            {authUser.userInfo?.email || "Signed In"}
                         </p>
                         <Avatar>
                             <AvatarImage
@@ -82,26 +82,28 @@ const Navabar = () => {
                         </Avatar>
                         </div>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent className="bg-white text-primary-700">
+                    <DropdownMenuContent className="bg-white shadow-lg rounded-lg border border-gray-200 w-48 text-sm">
                         <DropdownMenuItem
-                        className="cursor-pointer hover:!bg-primary-700 hover:!text-primary-100 font-bold"
-                        onClick={() =>
+                            className="px-4 py-2 text-gray-800 hover:bg-primary-600 hover:text-white font-medium transition-colors cursor-pointer"
+                            onClick={() =>
                             router.push(
-                            authUser.userRole?.toLowerCase() === "buyer" || "vendor"
+                                authUser.userRole?.toLowerCase() === "buyer" || "vendor"
                                 ? "/users/favorites"
                                 : "/users/settings",
-                            { scroll: false }
+                                { scroll: false }
                             )
-                        }
+                            }
                         >
-                        Dashboard
+                            Dashboard
                         </DropdownMenuItem>
-                        <DropdownMenuSeparator className="bg-primary-200" />
+
+                        <DropdownMenuSeparator className="my-1 h-px bg-gray-100" />
+
                         <DropdownMenuItem
-                        className="cursor-pointer hover:!bg-primary-700 hover:!text-primary-100 "
-                        onClick={handleSignOut}
+                            className="px-4 py-2 text-gray-800 hover:bg-red-500 hover:text-white transition-colors cursor-pointer font-semibold"
+                            onClick={handleSignOut}
                         >
-                        Sign Out
+                            Sign Out
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                     </DropdownMenu>

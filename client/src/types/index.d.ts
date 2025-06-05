@@ -1,6 +1,7 @@
 import { LucideIcon } from "lucide-react";
 import { AuthUser } from "aws-amplify/auth";
 import { HighlightEnum, ProductCategoryEnum, VendorShopType } from "./prismaEnum";
+import { User} from "./prismaTypes";
 
 // Allow className on motion components
 import { MotionProps as OriginalMotionProps } from "framer-motion";
@@ -16,12 +17,8 @@ declare module "framer-motion" {
 declare global {
   // ✅ User model
   interface User {
-    id: number;
-    email: string;
     cognitoInfo: AuthUser;
-    userInfo: {
-      name?: string;
-    };
+    userInfo: User;
     shops: Shop[];
   }
 
@@ -52,7 +49,7 @@ declare global {
     id: number;
     name: string;
     description: string;
-    category: ProductCategoryEnum;
+    category: ProductCategoryEnum[];
     subcategory?: string;
     tags?: string[];
     price: number;
@@ -60,7 +57,7 @@ declare global {
     isAvailable: boolean;
     imageUrl?: string;
     externalPurchaseUrl?: string;
-    shopId: number;
+    vendorShopId: number;
   }
 
   // ✅ Shop creation form
@@ -77,7 +74,10 @@ declare global {
       city: string;
       country: string;
       postalCode: string;
+      latitude: number;
+        longitude: number;
     };
+    plan?: 'SEED' | 'GROWTH' | 'BLOOM'
   }
 
   // ✅ Product creation form
@@ -107,6 +107,10 @@ declare global {
     icon: LucideIcon;
     label: string;
   }
+  interface AppSidebarProps {
+    userType: "buyer" | "vendor" | "user";
+  }
+
 
   interface ShopCardProps {
     shop: Shop;

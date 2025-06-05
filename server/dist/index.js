@@ -10,6 +10,7 @@ const morgan_1 = __importDefault(require("morgan"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const cors_1 = __importDefault(require("cors"));
 // import { PrismaClient } from "@prisma/client";
+const userRoutes_1 = __importDefault(require("./routes/userRoutes"));
 const app = (0, express_1.default)();
 // const upload = multer(); // Initialize multer
 // Middleware
@@ -26,8 +27,8 @@ app.use((0, cors_1.default)());
 app.get("/", (req, res) => {
     res.send("This is home route!");
 });
+app.use("/users", userRoutes_1.default);
 // app.use("/shops", shopsRoutes);
-// app.use("/users", authMiddleware(["buyer", "vendor", "user"]), userRoutes);
 // app.use('/vendors', authMiddleware(['vendor', 'users', 'buyer']), vendorRoutes);
 // Server
 const port = process.env.PORT || 3002;

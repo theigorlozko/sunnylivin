@@ -37,3 +37,32 @@ export function cleanParams(params: Record<string, any>): Record<string, any> {
     )
   );
 }
+
+export const createNewUserInDatabase = async (
+  user: any,
+  idToken: any,
+  userRole: string,
+  fetchWithBQ: any
+) => {
+  const role = userRole?.toLowerCase();
+
+  // Route users to correct API endpoint based on role
+  const createEndpoint = role === "vendor" ? "/vendors" : "/users";
+
+  const createUserResponse = await fetchWithBQ({
+    url: createEndpoint,
+    method: "POST",
+    body: {
+      cognitoId: user.userId,
+      name: user.username,
+      email: idToken?.payload?.email || "",
+      phoneNumber: "",
+    },
+  });
+
+  if (createUserResponse.error) {
+    throw new Error("Failed to create user record");
+  }
+
+  return createUserResponse;
+};

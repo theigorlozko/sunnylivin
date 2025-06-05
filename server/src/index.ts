@@ -6,6 +6,7 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import multer from "multer";
 // import { PrismaClient } from "@prisma/client";
+import userRoutes from "./routes/userRoutes";
 
 const app = express();
 // const upload = multer(); // Initialize multer
@@ -25,9 +26,9 @@ app.use(cors());
 app.get("/", (req, res) => {
   res.send("This is home route!");
 });
-
+app.use("/users", userRoutes);
 // app.use("/shops", shopsRoutes);
-// app.use("/users", authMiddleware(["buyer", "vendor", "user"]), userRoutes);
+
 // app.use('/vendors', authMiddleware(['vendor', 'users', 'buyer']), vendorRoutes);
 
 // Server
